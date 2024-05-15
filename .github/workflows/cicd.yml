@@ -1,0 +1,50 @@
+name: Build and Deploy to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to Azure Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Build and push Docker image for Album API
+      uses: docker/build-push-action@v2
+      with:
+        context: ./containerapps-albumapi-csharp
+        file: ./containerapps-albumapi-csharp/Dockerfile
+        push: true
+        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumapi:latest
+
+    - name: Build and push Docker image for Album UI
+      uses: docker/build-push-action@v2
+      with:
+        context: ./containerapps-albumui
+        file: ./containerapps-albumui/Dockerfile
+        push: true
+        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumui:latest
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy Album API to Azure Container Apps
+      run: |
+        az containerapp update --name albumapi --resource-group your-resource-group --environment your-environment --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumapi:latest
+
+    - name: Deploy Album UI to Azure Container Apps
+      run: |
+        az containerapp update --name albumui --resource-group your-resource-group --environment your-environment --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumui:latest
