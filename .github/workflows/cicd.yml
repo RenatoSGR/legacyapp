@@ -49,8 +49,8 @@ jobs:
     - name: Deploy Album API to Azure Container Apps
       run: |
 
-        az containerapp create --name albumapi --resource-group rg-gh-appmodernization-demo --environment ghaca-environment --image ${{ env.REGISTRY_NAME }} albumapi:latest --registry-server ${{ env.REGISTRY_NAME }}.azurecr.io --target-port 8080 --ingress 'external' --query properties.configuration.ingress.fqdn
+        az containerapp create --name albumapi --resource-group rg-gh-appmodernization-demo --environment ghaca-environment --image ${{ env.REGISTRY_NAME }} albumapi:v1 --registry-server ${{ env.REGISTRY_NAME }}.azurecr.io --target-port 8080 --ingress 'external' --query properties.configuration.ingress.fqdn
 
     - name: Deploy Album UI to Azure Container Apps
       run: |
-        az containerapp create --name albumui --resource-group rg-gh-appmodernization-demo --environment ghaca-environment --image ${{ env.REGISTRY_NAME }}albumui:latest --registry-server ${{ env.REGISTRY_NAME }}.azurecr.io --target-port 3000 --env-vars API_BASE_URL=https://$API_BASE_URL --ingress 'external' --query properties.configuration.ingress.fqdn --query properties.configuration.ingress.fqdn
+        az containerapp create --name albumui --resource-group rg-gh-appmodernization-demo --environment ghaca-environment --image ${{ env.REGISTRY_NAME }}albumui:v1 --registry-server ${{ env.REGISTRY_NAME }}.azurecr.io --target-port 3000 --env-vars API_BASE_URL=https://$API_BASE_URL --ingress 'external' --query properties.configuration.ingress.fqdn --query properties.configuration.ingress.fqdn
