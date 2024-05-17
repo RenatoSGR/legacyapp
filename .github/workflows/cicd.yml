@@ -1,50 +1,55 @@
 name: Build and Deploy to Azure Container Apps
-
 on:
   push:
     branches:
       - main
-
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
     - name: Login to Azure Container Registry
       uses: docker/login-action@v1
       with:
         registry: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-
     - name: Build and push Docker image for Album API
       uses: docker/build-push-action@v2
       with:
-        context: ./containerapps-albumapi-csharp
-        file: ./containerapps-albumapi-csharp/Dockerfile
+        context: ./containerapps-albumapi-csharp/src
+        file: ./containerapps-albumapi-csharp/src/Dockerfile
         push: true
-        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumapi:latest
-
+    - name: Build and push Docker image for Album API
+      uses: docker/build-push-action@v2
+      with:
+        context: ./containerapps-albumapi-csharp/src
+        file: ./containerapps-albumapi-csharp/src/Dockerfile
+        push: true
+        tags: ${{ secrets.REGISTRY_NAME }}/albumapi:latest
     - name: Build and push Docker image for Album UI
       uses: docker/build-push-action@v2
       with:
-        context: ./containerapps-albumui
-        file: ./containerapps-albumui/Dockerfile
+        context: ./containerapps-albumui/src
+        file: ./containerapps-albumui/src/Dockerfile
         push: true
-        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumui:latest
-
+        tags: ${{ secrets.REGISTRY_NAME }}/albumui:latest
     - name: Login to Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    - name: Create Container App environment
+      id: create-env
+      run: |
+        env_name="my-container-app-environment"
+        az containerapp env create --name $env_name --resource-group my-resource-group --location westeurope
+        echo "::set-output name=env_name::$env_name"
+
     - name: Deploy Album API to Azure Container Apps
       run: |
-        az containerapp update --name albumapi --resource-group your-resource-group --environment your-environment --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumapi:latest
-
+        az containerapp update --name albumapi --resource-group your-resource-group --environment ${{ steps.create-env.outputs.env_name }} --image your-registry.azurecr.io/albumapi:latest
     - name: Deploy Album UI to Azure Container Apps
       run: |
-        az containerapp update --name albumui --resource-group your-resource-group --environment your-environment --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumui:latest
+        az containerapp update --name albumui --resource-group your-resource-group --environment ${{ steps.create-env.outputs.env_name }} --image your-registry.azurecr.io/albumui:latest
