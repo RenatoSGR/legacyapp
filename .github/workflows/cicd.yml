@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 env:
-  REGISTRY_NAME: 'ghdemoacr.azurecr.io'
+  REGISTRY_NAME: ${{ secrets.REGISTRY_LOGIN_SERVER }}
 
 jobs:
   build_and_deploy:
