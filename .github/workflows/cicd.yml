@@ -20,20 +20,14 @@ jobs:
         context: ./containerapps-albumapi-csharp/src
         file: ./containerapps-albumapi-csharp/src/Dockerfile
         push: true
-    - name: Build and push Docker image for Album API
-      uses: docker/build-push-action@v2
-      with:
-        context: ./containerapps-albumapi-csharp/src
-        file: ./containerapps-albumapi-csharp/src/Dockerfile
-        push: true
-        tags: ${{ secrets.REGISTRY_NAME }}/albumapi:latest
+        tags: ${{ secrets.REGISTRY_NAME }}/albumapi:v1
     - name: Build and push Docker image for Album UI
       uses: docker/build-push-action@v2
       with:
         context: ./containerapps-albumui/src
         file: ./containerapps-albumui/src/Dockerfile
         push: true
-        tags: ${{ secrets.REGISTRY_NAME }}/albumui:latest
+        tags: ${{ secrets.REGISTRY_NAME }}/albumui:v1
     - name: Login to Azure
       uses: azure/login@v1
       with:
