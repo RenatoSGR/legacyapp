@@ -48,7 +48,7 @@ jobs:
 
     - name: Deploy Album API to Azure Container Apps
       run: |
-        az containerapp update --name albumapi --resource-group rg-gh-appmodernization-demo --environment ${{ steps.create-env.outputs.env_name }} --image ${{ secrets.REGISTRY_NAME }}/albumapi:latest
+        az containerapp create --name albumapi --resource-group rg-gh-appmodernization-demo --environment ${{ steps.create-env.outputs.env_name }} --image ${{ env.REGISTRY_NAME }}/albumapi:latest --target-port 8080 --ingress 'external' --query properties.configuration.ingress.fqdn
     - name: Deploy Album UI to Azure Container Apps
       run: |
-        az containerapp update --name albumui --resource-group rg-gh-appmodernization-demo --environment ${{ steps.create-env.outputs.env_name }} --image ${{ secrets.REGISTRY_NAME }}/albumui:latest
+        az containerapp create --name albumui --resource-group rg-gh-appmodernization-demo --environment ${{ steps.create-env.outputs.env_name }} --image ${{ env.REGISTRY_NAME }}/albumui:latest --target-port 3000 --env-vars API_BASE_URL=https://$API_BASE_URL --ingress 'external' --query properties.configuration.ingress.fqdn
