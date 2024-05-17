@@ -36,6 +36,18 @@ app.MapGet("/albums", () =>
 })
 .WithName("GetAlbums");
 
+app.MapGet("/memoryleak", () =>
+{
+    string lines = string.Empty;
+    StreamReader fileStream = new StreamReader("file.txt");
+    string line;
+    while ((line = fileStream.ReadLine()) != null)
+    {
+        lines += line;
+    }
+    return lines;
+});
+
 app.Run();
 
 record Album(int Id, string Title, string Artist, double Price, string Image_url)
