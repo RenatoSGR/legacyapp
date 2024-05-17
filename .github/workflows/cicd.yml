@@ -2,6 +2,9 @@ name: Build and Deploy to Azure Container Apps
 on:
   workflow_dispatch:
 
+env:
+  REGISTRY_NAME: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -22,7 +25,7 @@ jobs:
         context: ./containerapps-albumapi-csharp/src
         file: ./containerapps-albumapi-csharp/src/Dockerfile
         push: true
-        tags: ${{ env.REGISTRY_NAME }}/albumapi:v1
+        tags: $REGISTRY_NAME/albumapi:v1
         
     - name: Build and push Docker image for Album UI
       uses: docker/build-push-action@v2
@@ -30,7 +33,7 @@ jobs:
         context: ./containerapps-albumui/src
         file: ./containerapps-albumui/src/Dockerfile
         push: true
-        tags: ${{ env.REGISTRY_NAME }}/albumui:v1
+        tags: $REGISTRY_NAME/albumui:v1
     - name: Login to Azure
       uses: azure/login@v1
       with:
