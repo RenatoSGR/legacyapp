@@ -39,18 +39,18 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Create Container App environment
-      id: create-env
-      run: |
-        env_name="ghaca-environment"
-        az containerapp env create --name $env_name --resource-group rg-gh-appmodernization-demo --location westeurope --logs-workspace-id d25272d0-353b-4979-9854-6d9204bb7de2 
-        echo "::set-output name=env_name::$env_name"
+   #- name: Create Container App environment
+   #  id: create-env
+   #  run: |
+   #    env_name="ghaca-environment"
+   #    az containerapp env create --name $env_name --resource-group rg-gh-appmodernization-demo --location westeurope --logs-workspace-id d25272d0-353b-4979-9854-6d9204bb7de2 
+   #    echo "::set-output name=env_name::$env_name"
 
     - name: Deploy Album API to Azure Container Apps
       run: |
 
-        az containerapp create --name albumapi --resource-group rg-gh-appmodernization-demo --environment ${{ steps.create-env.outputs.env_name }} --image ${{ env.REGISTRY_NAME }}albumapi:latest --target-port 8080 --ingress 'external' --registry-username ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --query properties.configuration.ingress.fqdn
-        
+        az containerapp create --name albumapi --resource-group rg-gh-appmodernization-demo --environment ghaca-environment --image ${{ env.REGISTRY_NAME }} albumapi:latest --registry-server ${{ env.REGISTRY_NAME }}.azurecr.io --target-port 8080 --ingress 'external' --query properties.configuration.ingress.fqdn
+
     - name: Deploy Album UI to Azure Container Apps
       run: |
-        az containerapp create --name albumui --resource-group rg-gh-appmodernization-demo --environment ${{ steps.create-env.outputs.env_name }} --image ${{ env.REGISTRY_NAME }}albumui:latest --target-port 3000 --env-vars API_BASE_URL=https://$API_BASE_URL --ingress 'external' --registry-username ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --query properties.configuration.ingress.fqdn --query properties.configuration.ingress.fqdn
+        az containerapp create --name albumui --resource-group rg-gh-appmodernization-demo --environment ghaca-environment --image ${{ env.REGISTRY_NAME }}albumui:latest --registry-server ${{ env.REGISTRY_NAME }}.azurecr.io --target-port 3000 --env-vars API_BASE_URL=https://$API_BASE_URL --ingress 'external' --query properties.configuration.ingress.fqdn --query properties.configuration.ingress.fqdn
