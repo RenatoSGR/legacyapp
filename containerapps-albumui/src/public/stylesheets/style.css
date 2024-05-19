@@ -1,9 +1,11 @@
 .album-title {
-  padding: 10px;
-  color: black;
+  padding: 40px;
+  color: rgb(52, 22, 223);
+  font-size: 25px;
+  
 }
 
 .meta-info {
-  padding: 10px;
+  padding: 40px;
   color: #666;
 }

@@ -1,14 +1,13 @@
 name: Build and Deploy to Azure Container Apps
-
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+
+env:
+  REGISTRY_NAME: ${{ secrets.REGISTRY_LOGIN_SERVER }}
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -23,28 +22,35 @@ jobs:
     - name: Build and push Docker image for Album API
       uses: docker/build-push-action@v2
       with:
-        context: ./containerapps-albumapi-csharp
-        file: ./containerapps-albumapi-csharp/Dockerfile
+        context: ./containerapps-albumapi-csharp/src
+        file: ./containerapps-albumapi-csharp/src/Dockerfile
         push: true
-        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumapi:latest
-
+        tags: ${{ env.REGISTRY_NAME }}/albumapi:v1
+        
     - name: Build and push Docker image for Album UI
       uses: docker/build-push-action@v2
       with:
-        context: ./containerapps-albumui
-        file: ./containerapps-albumui/Dockerfile
+        context: ./containerapps-albumui/src
+        file: ./containerapps-albumui/src/Dockerfile
         push: true
-        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumui:latest
-
+        tags: ${{ env.REGISTRY_NAME }}/albumui:v1
     - name: Login to Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+   #- name: Create Container App environment
+   #  id: create-env
+   #  run: |
+   #    env_name="ghaca-environment"
+   #    az containerapp env create --name $env_name --resource-group rg-gh-appmodernization-demo --location westeurope --logs-workspace-id d25272d0-353b-4979-9854-6d9204bb7de2 
+   #    echo "::set-output name=env_name::$env_name"
+
     - name: Deploy Album API to Azure Container Apps
       run: |
-        az containerapp update --name albumapi --resource-group your-resource-group --environment your-environment --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumapi:latest
+
+        az containerapp create --name albumapi --resource-group rg-gh-appmodernization-demo --environment ghaca-environment --image ${{ env.REGISTRY_NAME }}/albumapi:v1 --registry-server ${{ env.REGISTRY_NAME }}.azurecr.io --target-port 8080 --ingress 'external' --query properties.configuration.ingress.fqdn
 
     - name: Deploy Album UI to Azure Container Apps
       run: |
-        az containerapp update --name albumui --resource-group your-resource-group --environment your-environment --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/albumui:latest
+        az containerapp create --name albumui --resource-group rg-gh-appmodernization-demo --environment ghaca-environment --image ${{ env.REGISTRY_NAME }}/albumui:v1 --registry-server ${{ env.REGISTRY_NAME }}.azurecr.io --target-port 3000 --env-vars API_BASE_URL=https://$API_BASE_URL --ingress 'external' --query properties.configuration.ingress.fqdn --query properties.configuration.ingress.fqdn
