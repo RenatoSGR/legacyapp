@@ -1,3 +1,5 @@
+using AlbumAPI;
+
 var builder = WebApplication.CreateBuilder();
 
 // Add services to the container.
@@ -36,16 +38,9 @@ app.MapGet("/albums", () =>
 })
 .WithName("GetAlbums");
 
-app.MapGet("/memoryleak", () =>
+app.MapGet("/albumsfunny", () =>
 {
-    string lines = string.Empty;
-    StreamReader fileStream = new StreamReader("file.txt");
-    string line;
-    while ((line = fileStream.ReadLine()) != null)
-    {
-        lines += line;
-    }
-    return lines;
+    return new FunnyService().GetFunnyAlbums();
 });
 
 app.Run();
