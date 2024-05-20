@@ -16,6 +16,9 @@ This is a legacy application that is being migrated to the cloud.
 
 ## Challenge
 
+For running this challenge, please checkout the **demo branch** and do the next steps and GitHub Copilot prompts under that branch, since this main branch already has all the code and actions needed to deploy the application to Azure Container Apps, with the full solution already implemented. 
+
+### The Application
 The application is a simple album catalog that consists of two parts:
 
 - Album API: A .NET Core Web API that provides CRUD operations for albums.
