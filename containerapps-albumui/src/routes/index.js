@@ -5,7 +5,7 @@ const axios = require("axios");
 const background = process.env.BACKGROUND_COLOR;
 
 const api = axios.create({
-  baseURL: process.env.API_BASE_URL,
+  baseURL: "http://localhost:8080",//process.env.API_BASE_URL,
   params: {},
   timeout: process.env.TIMEOUT || 15000,
 });
