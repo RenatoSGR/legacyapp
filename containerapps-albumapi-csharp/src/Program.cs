@@ -16,6 +16,9 @@ builder.Services.AddCors(options => {
     });
 });
 
+builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.AddServiceProfiler();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
