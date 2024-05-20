@@ -87,7 +87,7 @@ aka.ms/gh-legacyapp
 
 ### 3. Modernize the Album Application
 
-### 3.1 Let's start interact with GitHub Copilot to modernize the application.
+#### 3.1 Let's start interact with GitHub Copilot to modernize the application.
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
@@ -102,7 +102,7 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-### 3.2 Now let's modernize the Album Application.
+#### 3.2 Now let's modernize the Album Application.
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
@@ -116,7 +116,7 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-### 3.3 let's ask GitHub Copilot to help us explaining the Dockerfiles.
+#### 3.3 let's ask GitHub Copilot to help us explaining the Dockerfiles.
 
 <details>
 <summary>💡 GitHub Copilot tip - Interaction Mode View
@@ -132,7 +132,7 @@ aka.ms/gh-legacyapp
 <br/>  
 
 
-### 3.4 Now let's build the Docker images for the Album API and Album UI.
+#### 3.4 Now let's build the Docker images for the Album API and Album UI.
 
 <details>
 
@@ -140,14 +140,13 @@ aka.ms/gh-legacyapp
 
 </summary>
 
-
 > 
 
 > `How to build and run my container into my local machine`
 </details>
 <br/>  
 
-### 3.5 Let's ask Copilot if can provide me some principles of Infrastructure as Code.
+#### 3.5 Let's ask Copilot if can provide me some principles of Infrastructure as Code.
 
 
 <details>
@@ -164,7 +163,7 @@ aka.ms/gh-legacyapp
 <br/>  
 
 
-### 3.6 Now let's deploy the Album API and Album UI to Azure Container Apps, using GitHub actions workflows.
+#### 3.6 Now let's deploy the Album API and Album UI to Azure Container Apps, using GitHub actions workflows.
 
 <details>
 
@@ -179,7 +178,7 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-### 3.7 Let's ask Copilot to explain the GitHub Actions workflow.
+#### 3.7 Let's ask Copilot to explain the GitHub Actions workflow.
 
 <details>
 <summary>💡 GitHub Copilot tip - Interaction Mode View
@@ -196,17 +195,32 @@ aka.ms/gh-legacyapp
 
 ### 4. Deploy the Album Application to Azure
 
-### 4.1 Push the changes to your GitHub repository.
+#### 4.1 Push the changes to your GitHub repository.
 
-### 4.2 Create the secrets and variables that are needed for the GitHub Actions workflow.
+```shell
+git add .
+git commit -m "Modernize the Album Application"
+git push
+```
 
-### 4.3 Run the GitHub Actions workflow to deploy the Album Application to Azure Container Apps.
+#### 4.2 Create the secrets and variables that are needed for the GitHub Actions workflow.
 
-### 4.4 Access the Album Application running in Azure.
+- AZURE_CREDENTIALS: The Azure service principal credentials.
+- CONTAINE_REGISTRY_NAME: The name of the Azure Container Registry.
+- CONTAINER_REGISTRY_USERNAME: The username of the Azure Container Registry.
+- CONTAINER_REGISTRY_PASSWORD: The password of the Azure Container Registry.
+
+#### 4.3 Run the GitHub Actions workflow to deploy the Album Application to Azure Container Apps.
+
+Under the Actions tab in your GitHub repository, you will see the GitHub Actions workflow that was created. Click on the workflow and then click on the Run workflow button to start the deployment process.
+
+#### 4.4 Access the Album Application running in Azure.
+
+After the deployment process is completed, you can access the Album Application running in Azure by navigating to the URL provided by Azure Container Apps.
 
 ### 5. Enhance your solution
 
-### 5.1 Add telemetry to the Album API and Album UI.
+#### 5.1 Add telemetry to the Album API and Album UI.
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
@@ -219,7 +233,7 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-### 5.2 Can I use OpenTelemetry sdk?
+#### 5.2 Can I use OpenTelemetry sdk?
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
@@ -234,7 +248,7 @@ aka.ms/gh-legacyapp
 
 ### 6. Adding cloud-native principles and best practices
 
-### 6.1 Ask Copilot to provide you with some best practices for cloud-native applications.
+#### 6.1 Ask Copilot to provide you with some best practices for cloud-native applications.
 
 
 <details>
@@ -249,7 +263,7 @@ aka.ms/gh-legacyapp
 <br/>  
 
 
-### 6.2 Ask Copilot to provide some pillars of Application Modernization.
+#### 6.2 Ask Copilot to provide some pillars of Application Modernization.
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
