@@ -25,7 +25,7 @@ The Album API is a legacy application that is running on a Windows Server 2016 V
 
 The goal is to modernize and migrate the Album API and Album UI to the cloud.
 
-#### Architecture and Scenario
+### Architecture and Scenario
 
 ![image](./content/arch-legapp.png)
 
@@ -64,30 +64,30 @@ npm run start
 
 **Note** to connect the Album UI to the Album API, you need to update the `process.env.API_BASE_URL` in the `.env` file iorder to point to the Album API URL.
 
-### Using GitHub Copilot to modernize the application
+## Using GitHub Copilot to modernize the application
 
 GitHub Copilot is an AI pair programmer that helps you write code faster and with less effort. It draws context from the code you’re working on and suggests whole lines or entire functions. You can try GitHub Copilot in Visual Studio Code by installing the GitHub Copilot extension.
 
-#### Success criteria
+### Success criteria
 
 🎯 Show the Album Application containerized and running in Azure (eg: in a AKS, ACA, App Services)
 
-#### Instructions
+### Instructions
 
-##### 1. Setup your environment
+### 1. Setup your environment
 
 Make sure the following extensions are installed in your Visual Studio Code:
 
 - GitHub Copilot
 - GitHub Copilot Chat
 
-##### 2. Clone the repository
+### 2. Clone the repository
 
 aka.ms/gh-legacyapp
 
-##### 3. Modernize the Album Application
+### 3. Modernize the Album Application
 
-3.1 Let's start interact with GitHub Copilot to modernize the application.
+### 3.1 Let's start interact with GitHub Copilot to modernize the application.
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
@@ -102,7 +102,7 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-3.2 Now let's modernize the Album Application.
+### 3.2 Now let's modernize the Album Application.
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
@@ -116,7 +116,7 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-3.3 let's ask GitHub Copilot to help us explaining the Dockerfiles.
+### 3.3 let's ask GitHub Copilot to help us explaining the Dockerfiles.
 
 <details>
 <summary>💡 GitHub Copilot tip - Interaction Mode View
@@ -132,7 +132,7 @@ aka.ms/gh-legacyapp
 <br/>  
 
 
-3.4 Now let's build the Docker images for the Album API and Album UI.
+### 3.4 Now let's build the Docker images for the Album API and Album UI.
 
 <details>
 
@@ -147,7 +147,7 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-3.5 Let's ask Copilot if can provide me some principles of Infrastructure as Code.
+### 3.5 Let's ask Copilot if can provide me some principles of Infrastructure as Code.
 
 
 <details>
@@ -164,7 +164,7 @@ aka.ms/gh-legacyapp
 <br/>  
 
 
-3.6 Now let's deploy the Album API and Album UI to Azure Container Apps, using GitHub actions workflows.
+### 3.6 Now let's deploy the Album API and Album UI to Azure Container Apps, using GitHub actions workflows.
 
 <details>
 
@@ -179,7 +179,7 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-3.7 Let's ask Copilot to explain the GitHub Actions workflow.
+### 3.7 Let's ask Copilot to explain the GitHub Actions workflow.
 
 <details>
 <summary>💡 GitHub Copilot tip - Interaction Mode View
@@ -194,19 +194,19 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-##### 4. Deploy the Album Application to Azure
+### 4. Deploy the Album Application to Azure
 
-4.1 Push the changes to your GitHub repository.
+### 4.1 Push the changes to your GitHub repository.
 
-4.2 Create the secrets and variables that are needed for the GitHub Actions workflow.
+### 4.2 Create the secrets and variables that are needed for the GitHub Actions workflow.
 
-4.3 Run the GitHub Actions workflow to deploy the Album Application to Azure Container Apps.
+### 4.3 Run the GitHub Actions workflow to deploy the Album Application to Azure Container Apps.
 
-4.4 Access the Album Application running in Azure.
+### 4.4 Access the Album Application running in Azure.
 
-##### 5. Enhance your solution
+### 5. Enhance your solution
 
-5.1 Add telemetry to the Album API and Album UI.
+### 5.1 Add telemetry to the Album API and Album UI.
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
@@ -219,7 +219,7 @@ aka.ms/gh-legacyapp
 </details>
 <br/>  
 
-5.2 Can I use OpenTelemetry sdk?
+### 5.2 Can I use OpenTelemetry sdk?
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
@@ -230,11 +230,11 @@ aka.ms/gh-legacyapp
 
 > `Can you provide me as well the code for opentelemetry sdk?`
 </details>
-<br/>  
+ 
 
-##### 6. Adding cloud-native principles and best practices
+### 6. Adding cloud-native principles and best practices
 
-6.1 Ask Copilot to provide you with some best practices for cloud-native applications.
+### 6.1 Ask Copilot to provide you with some best practices for cloud-native applications.
 
 
 <details>
@@ -249,7 +249,7 @@ aka.ms/gh-legacyapp
 <br/>  
 
 
-6.2 Ask Copilot to provide some pillars of Application Modernization.
+### 6.2 Ask Copilot to provide some pillars of Application Modernization.
 
 <details>
 <summary>💡 GitHub Copilot tip - Chat View
